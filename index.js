@@ -1,20 +1,10 @@
 import { getPosts } from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
-import {
-  ADD_POSTS_PAGE,
-  AUTH_PAGE,
-  LOADING_PAGE,
-  POSTS_PAGE,
-  USER_POSTS_PAGE,
-} from "./routes.js";
+import { ADD_POSTS_PAGE, AUTH_PAGE, LOADING_PAGE, POSTS_PAGE, USER_POSTS_PAGE } from "./routes.js";
 import { renderPostsPageComponent } from "./components/posts-page-component.js";
 import { renderLoadingPageComponent } from "./components/loading-page-component.js";
-import {
-  getUserFromLocalStorage,
-  removeUserFromLocalStorage,
-  saveUserToLocalStorage,
-} from "./helpers.js";
+import { getUserFromLocalStorage, removeUserFromLocalStorage, saveUserToLocalStorage } from "./helpers.js";
 
 export let user = getUserFromLocalStorage();
 export let page = null;
@@ -31,18 +21,15 @@ export const logout = () => {
   goToPage(POSTS_PAGE);
 };
 
-/**
- * Включает страницу приложения
- */
+// Включает страницу приложения
 export const goToPage = (newPage, data) => {
-  if (
-    [
-      POSTS_PAGE,
-      AUTH_PAGE,
-      ADD_POSTS_PAGE,
-      USER_POSTS_PAGE,
-      LOADING_PAGE,
-    ].includes(newPage)
+  if ([
+    POSTS_PAGE,
+    AUTH_PAGE,
+    ADD_POSTS_PAGE,
+    USER_POSTS_PAGE,
+    LOADING_PAGE,
+  ].includes(newPage)
   ) {
     if (newPage === ADD_POSTS_PAGE) {
       // Если пользователь не авторизован, то отправляем его на авторизацию перед добавлением поста
@@ -53,7 +40,6 @@ export const goToPage = (newPage, data) => {
     if (newPage === POSTS_PAGE) {
       page = LOADING_PAGE;
       renderApp();
-
       return getPosts({ token: getToken() })
         .then((newPosts) => {
           page = POSTS_PAGE;
@@ -82,6 +68,8 @@ export const goToPage = (newPage, data) => {
 
   throw new Error("страницы не существует");
 };
+
+
 
 const renderApp = () => {
   const appEl = document.getElementById("app");
@@ -118,9 +106,7 @@ const renderApp = () => {
   }
 
   if (page === POSTS_PAGE) {
-    return renderPostsPageComponent({
-      appEl,
-    });
+    return renderPostsPageComponent({ appEl });
   }
 
   if (page === USER_POSTS_PAGE) {
