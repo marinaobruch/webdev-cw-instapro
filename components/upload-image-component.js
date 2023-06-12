@@ -6,15 +6,14 @@ export function renderUploadImageComponent({ element, onImageUrlChange }) {
   const render = () => {
     element.innerHTML = `
   <div class="upload=image">
-      ${
-        imageUrl
-          ? `
+      ${imageUrl
+        ? `
           <div class="file-upload-image-conrainer">
             <img class="file-upload-image" src="${imageUrl}">
             <button class="file-upload-remove-button button">Заменить фото</button>
           </div>
           `
-          : `
+        : `
             <label class="file-upload-label secondary-button">
                 <input
                   type="file"
@@ -22,8 +21,7 @@ export function renderUploadImageComponent({ element, onImageUrlChange }) {
                   style="display:none"
                 />
                 Выберите фото
-            </label>
-          
+            </label>   
       `
       }
   </div>
