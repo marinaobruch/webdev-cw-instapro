@@ -4,6 +4,8 @@ import { posts, goToPage, userPosts } from "../index.js";
 import { correctDate } from "../helpers.js";
 import { getPosts, getUserPosts } from "../api.js";
 
+// добавить лоадер на страничку
+
 export function renderPostsPageComponent({ appEl, token }) {
   console.log("Актуальный список постов:", posts);
 
@@ -74,21 +76,30 @@ export function renderUserPostComponent({ appEl, token, user }) {
             <img src="${post.user.imageUrl}" class="post-header__user-image">
             <p class="post-header__user-name">${post.user.name}</p>
           </div>
+
           <div class="post-image-container">
             <img class="post-image" src="${post.imageUrl}">
           </div>
-          <div class="post-likes">
-            <button data-post-id="${post.id}" data-liked="${post.isLiked}" class="like-button">
-            ${post.isLiked ? `<img src="./assets/images/like-active.svg">` : `<img src="./assets/images/like-not-active.svg">`}
-          </button>
-          <p class="post-likes-text">
-            Нравится: 
-            <strong>  ${post.likes.length === 0
+          
+          <div class="footer-post">
+            <div class="delete-button-main>
+              <button class="delete-button">Удалить пост</button>
+            </div>
+
+            <div class="post-likes">
+                <button data-post-id="${post.id}" data-liked="${post.isLiked}" class="like-button">
+                  ${post.isLiked ? `<img src="./assets/images/like-active.svg">` : `<img src="./assets/images/like-not-active.svg">`}
+                </button>
+                  <p class="post-likes-text">
+                    Нравится: 
+                    <strong>  ${post.likes.length === 0
         ? 0
         : post.likes[post.likes.length - 1].name + ((post.likes.length > 1) ? ' и ещё ' + (post.likes.length - 1) : '')}
-            </strong>
-          </p>
+                    </strong>
+                  </p>
+            </div>
           </div>
+
           <p class="post-text">
             <span class="user-name">${post.user.name}</span>
             ${post.description}
