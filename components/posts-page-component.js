@@ -1,6 +1,7 @@
 import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, userPosts } from "../index.js";
+import { correctDate } from "../helpers.js";
 import { getPosts, getUserPosts } from "../api.js";
 
 export function renderPostsPageComponent({ appEl, token }) {
@@ -35,7 +36,7 @@ export function renderPostsPageComponent({ appEl, token }) {
       ${post.description}
     </p>
     <p class="post-date">
-    ${post.createdAt}
+    ${correctDate(post.createdAt)}
     </p>
   </li>`
   }).join('');
