@@ -120,7 +120,7 @@ const renderApp = () => {
       user: getUserFromLocalStorage(),
     })
   }
-  console.log(user);
+
 };
 
 goToPage(POSTS_PAGE);
