@@ -89,3 +89,19 @@ export function addPost({ token, description, imageUrl }) {
     }
   })
 };
+
+export function getUserPosts({ id, token }) {
+  return fetch(postsHost + `/user-posts/${id}`, {
+    method: "GET",
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      return data.posts;
+    });
+}
