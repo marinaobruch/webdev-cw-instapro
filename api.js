@@ -103,3 +103,14 @@ export function getUserPosts({ id, token }) {
       return data.posts;
     });
 }
+
+export function deletePost({ id, token }) {
+  return fetch(postsHost + `/` + id, {
+    method: "DELETE",
+    headers: {
+      Authorization: token,
+    },
+  }).then((response) => {
+    return response.json();
+  });
+}

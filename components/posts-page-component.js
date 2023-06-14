@@ -1,8 +1,8 @@
 import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage, userPosts } from "../index.js";
+import { posts, goToPage, userPosts, getToken } from "../index.js";
 import { correctDate } from "../helpers.js";
-import { getPosts, getUserPosts } from "../api.js";
+import { getPosts, getUserPosts, deletePost } from "../api.js";
 
 // добавить лоадер на страничку
 
@@ -86,17 +86,17 @@ export function renderUserPostComponent({ appEl, token, user }) {
                 <button data-post-id="${post.id}" data-liked="${post.isLiked}" class="like-button">
                   ${post.isLiked ? `<img src="./assets/images/like-active.svg">` : `<img src="./assets/images/like-not-active.svg">`}
                 </button>
-                  <p class="post-likes-text">
-                    Нравится: 
-                    <strong>  ${post.likes.length === 0
+                <p class="post-likes-text">
+                Нравится: 
+                  <strong>  ${post.likes.length === 0
         ? 0
         : post.likes[post.likes.length - 1].name + ((post.likes.length > 1) ? ' и ещё ' + (post.likes.length - 1) : '')}
-                    </strong>
+                  </strong>
                   </p>
             </div>
 
-            <div class="delete-button-main>
-            <button class="delete-button">Удалить пост</button>
+            <div class="delete-button-main">
+            <button class="delete-button" data-post-id="${post.id}">Удалить пост</button>
             </div>
 
           </div>
@@ -125,5 +125,31 @@ export function renderUserPostComponent({ appEl, token, user }) {
     element: document.querySelector(".header-container"),
   });
 
+  //Функция удаления комментария
+  if (!user) {
+    const deleteButtons = document.querySelectorAll(".delete-button");
+    for (const deleteButton of deleteButtons) {
+      deleteButton.setAttribute('disabled', '');
+      deleteButton.classList.add("disabled");
+    }
+  }
+
+  if (user) {
+    let deleteButtons = document.querySelectorAll(".delete-button");
+
+    for (const deleteButton of deleteButtons) {
+      deleteButton.addEventListener("click", () => {
+
+        let id = deleteButton.dataset.postId;
+
+        deletePost({
+          id,
+          token: getToken(),
+        }).then(() => {
+          console.log('Запись успешно удалена')
+        })
+      })
+    };
+  }
   const page = USER_POSTS_PAGE;
 }
