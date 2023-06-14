@@ -82,10 +82,6 @@ export function renderUserPostComponent({ appEl, token, user }) {
           </div>
           
           <div class="footer-post">
-            <div class="delete-button-main>
-              <button class="delete-button">Удалить пост</button>
-            </div>
-
             <div class="post-likes">
                 <button data-post-id="${post.id}" data-liked="${post.isLiked}" class="like-button">
                   ${post.isLiked ? `<img src="./assets/images/like-active.svg">` : `<img src="./assets/images/like-not-active.svg">`}
@@ -98,6 +94,11 @@ export function renderUserPostComponent({ appEl, token, user }) {
                     </strong>
                   </p>
             </div>
+
+            <div class="delete-button-main>
+            <button class="delete-button">Удалить пост</button>
+            </div>
+
           </div>
 
           <p class="post-text">
