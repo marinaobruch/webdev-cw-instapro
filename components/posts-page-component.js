@@ -2,9 +2,16 @@ import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, userPosts, getToken } from "../index.js";
 import { correctDate } from "../helpers.js";
-import { getPosts, getUserPosts, deletePost } from "../api.js";
+import { getPosts, getUserPosts, deletePost, likeFetchFunc, dislikeFetchFunc } from "../api.js";
 
-// добавить лоадер на страничку
+const initLikeButtons = () => {
+  const likeButtonElements = document.querySelectorAll(".like-button")
+  for (const likeButtonElement of likeButtonElements) {
+    likeButtonElement.addEventListener("click", () => {
+
+    })
+  }
+}
 
 export function renderPostsPageComponent({ appEl, token }) {
   console.log("Актуальный список постов:", posts);
@@ -53,6 +60,8 @@ export function renderPostsPageComponent({ appEl, token }) {
 
   appEl.innerHTML = appHtml;
 
+  initLikeButtons();
+
   renderHeaderComponent({
     element: document.querySelector(".header-container"),
   });
@@ -66,6 +75,8 @@ export function renderPostsPageComponent({ appEl, token }) {
   }
   const page = POSTS_PAGE;
 }
+
+
 
 
 export function renderUserPostComponent({ appEl, token, user }) {
@@ -106,7 +117,7 @@ export function renderUserPostComponent({ appEl, token, user }) {
             ${post.description}
           </p>
           <p class="post-date">
-          ${post.createdAt}
+          ${correctDate(post.createdAt)}
           </p>
         </li>`
   }).join('');
