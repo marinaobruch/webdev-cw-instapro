@@ -54,6 +54,10 @@ export const goToPage = (newPage, data) => {
     }
 
     if (newPage === USER_POSTS_PAGE) {
+      if (!data?.notIsLoad) {
+        page = LOADING_PAGE;
+        renderApp();
+      }
 
       console.log("Открываю страницу пользователя: ", data.userId);
       let id = data.userId;
