@@ -126,7 +126,7 @@ export function likeFetchFunc({ id, token }) {
 }
 
 export function dislikeFetchFunc({ id, token }) {
-  return fetch(postsHost + `/` + id + `/like`, {
+  return fetch(postsHost + `/` + id + `/dislike`, {
     method: "POST",
     headers: {
       Authorization: token,

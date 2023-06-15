@@ -4,20 +4,32 @@ import { posts, goToPage, userPosts, getToken, user } from "../index.js";
 import { correctDate } from "../helpers.js";
 import { getPosts, getUserPosts, deletePost, likeFetchFunc, dislikeFetchFunc } from "../api.js";
 
-const initLikeButtons = () => {
+function initLikeButtons(page, token, data) {
   const likeButtonElements = document.querySelectorAll(".like-button");
 
   for (const likeButtonElement of likeButtonElements) {
 
     likeButtonElement.addEventListener("click", () => {
+
       let id = likeButtonElement.dataset.postId;
-      console.log(id);
+
+      if (likeButtonElement.dataset.liked === `false`) {
+        // console.log("Лайк поставлен");
+        likeFetchFunc({ id, token: getToken() }).then(() => {
+          goToPage(page, data)
+        })
+      } else {
+        // console.log("Лайк удален");
+        dislikeFetchFunc({ id, token: getToken() }).then(() => {
+          goToPage(page, data)
+        })
+      }
     })
   }
 }
 
 export function renderPostsPageComponent({ appEl, token }) {
-  console.log("Актуальный список постов:", posts);
+  // console.log("Актуальный список постов:", posts);
 
   //  TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
   //  можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
@@ -63,7 +75,6 @@ export function renderPostsPageComponent({ appEl, token }) {
 
   appEl.innerHTML = appHtml;
 
-  initLikeButtons();
 
   renderHeaderComponent({
     element: document.querySelector(".header-container"),
@@ -76,7 +87,10 @@ export function renderPostsPageComponent({ appEl, token }) {
       });
     });
   }
+
   const page = POSTS_PAGE;
+  initLikeButtons(page, token, { notIsLoad: true });
+
 }
 
 export function renderUserPostComponent({ appEl, token, user }) {
@@ -137,6 +151,16 @@ export function renderUserPostComponent({ appEl, token, user }) {
     element: document.querySelector(".header-container"),
   });
 
+
+  const page = USER_POSTS_PAGE;
+
+  let data = {
+    userId: userPosts[0]?.user.id
+  }
+
+  initLikeButtons(page, token, data);
+
+
   //Функция удаления комментария
   const deleteButtons = document.querySelectorAll(".delete-button");
   for (const deleteButton of deleteButtons) {
@@ -146,9 +170,8 @@ export function renderUserPostComponent({ appEl, token, user }) {
         id,
         token: getToken(),
       }).then(() => {
-        console.log("Запись удалена");
-        // goToPage(USER_POSTS_PAGE, data); // реализовать обновление страницы после удаления поста
-        // нужно передать новые посты в переменную и вызвать ее в goToPage
+        console.log('Запись успешно удалена')
+        goToPage(USER_POSTS_PAGE, data);
       })
     })
   };
