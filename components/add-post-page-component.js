@@ -2,6 +2,7 @@ import { addPost } from "../api.js";
 import { renderUploadImageComponent } from "./upload-image-component.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { getToken } from "../index.js";
+import { replaceValue } from "../helpers.js";
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
 
@@ -41,7 +42,7 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
 
     document.getElementById("add-button").addEventListener("click", () => {
 
-      const description = document.getElementById("input-text").value;
+      const description = replaceValue(document.getElementById("input-text").value);
 
       if (description === "") {
         alert("Добавьте описание");

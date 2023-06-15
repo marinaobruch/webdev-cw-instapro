@@ -26,3 +26,12 @@ export const correctDate = date => {
 
   return `${day}.${month}.${year} ${hours}:${minutes}`;
 }
+
+// Замена символов
+export const replaceValue = (value) => {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
