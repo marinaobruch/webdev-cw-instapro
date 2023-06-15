@@ -121,8 +121,12 @@ export function likeFetchFunc({ id, token }) {
       Authorization: token,
     },
   }).then((response) => {
-    return response.json();
-  });
+    if (response.status === 200) {
+      response.json()
+    } else if (response.status === 401) {
+      throw new Error('Пожалуйста, авторизуйтесь или зарегистрируйтесь')
+    }
+  })
 }
 
 export function dislikeFetchFunc({ id, token }) {
@@ -132,6 +136,10 @@ export function dislikeFetchFunc({ id, token }) {
       Authorization: token,
     },
   }).then((response) => {
-    return response.json();
-  });
+    if (response.status === 200) {
+      response.json()
+    } else if (response.status === 401) {
+      throw new Error('Пожалуйста, авторизуйтесь или зарегистрируйтесь')
+    }
+  })
 }

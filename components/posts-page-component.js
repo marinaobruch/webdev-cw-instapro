@@ -17,11 +17,15 @@ function initLikeButtons(page, token, data) {
         // console.log("Лайк поставлен");
         likeFetchFunc({ id, token: getToken() }).then(() => {
           goToPage(page, data)
+        }).catch((error) => {
+          alert(error.message)
         })
       } else {
         // console.log("Лайк удален");
         dislikeFetchFunc({ id, token: getToken() }).then(() => {
           goToPage(page, data)
+        }).catch((error) => {
+          alert(error.message)
         })
       }
     })
@@ -119,12 +123,10 @@ export function renderUserPostComponent({ appEl, token, user }) {
                   </strong>
                   </p>
             </div>
-
-            ${user._id === post.user.id ? `            
+            ${!user ? `` : `${user._id === post.user.id ? `            
             <div class="delete-button-main">
             <button class="delete-button" data-post-id="${post.id}">Удалить пост</button>
-            </div>` : ``}
-
+            </div>` : ``}`}
           </div>
 
           <p class="post-text">
