@@ -1,14 +1,17 @@
 import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage, userPosts, getToken } from "../index.js";
+import { posts, goToPage, userPosts, getToken, user } from "../index.js";
 import { correctDate } from "../helpers.js";
 import { getPosts, getUserPosts, deletePost, likeFetchFunc, dislikeFetchFunc } from "../api.js";
 
 const initLikeButtons = () => {
-  const likeButtonElements = document.querySelectorAll(".like-button")
-  for (const likeButtonElement of likeButtonElements) {
-    likeButtonElement.addEventListener("click", () => {
+  const likeButtonElements = document.querySelectorAll(".like-button");
 
+  for (const likeButtonElement of likeButtonElements) {
+
+    likeButtonElement.addEventListener("click", () => {
+      let id = likeButtonElement.dataset.postId;
+      console.log(id);
     })
   }
 }
@@ -75,8 +78,6 @@ export function renderPostsPageComponent({ appEl, token }) {
   }
   const page = POSTS_PAGE;
 }
-
-
 
 
 export function renderUserPostComponent({ appEl, token, user }) {
@@ -146,21 +147,17 @@ export function renderUserPostComponent({ appEl, token, user }) {
   }
 
   if (user) {
+    console.log(user.id);
     let deleteButtons = document.querySelectorAll(".delete-button");
-
     for (const deleteButton of deleteButtons) {
+      let id = deleteButton.dataset.postId;
       deleteButton.addEventListener("click", () => {
-
-        let id = deleteButton.dataset.postId;
-
         deletePost({
           id,
           token: getToken(),
-        }).then(() => {
-          console.log('Запись успешно удалена')
         })
       })
     };
   }
-  const page = USER_POSTS_PAGE;
+  let page = USER_POSTS_PAGE;
 }

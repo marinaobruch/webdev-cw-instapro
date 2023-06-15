@@ -108,6 +108,7 @@ const renderApp = () => {
     return renderAddPostPageComponent({
       appEl,
       onAddPostClick() {
+        goToPage(LOADING_PAGE);
         goToPage(POSTS_PAGE);
         return renderApp();
       },

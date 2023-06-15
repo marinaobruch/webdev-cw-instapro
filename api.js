@@ -105,8 +105,30 @@ export function getUserPosts({ id, token }) {
 }
 
 export function deletePost({ id, token }) {
-  return fetch(postsHost + `/` + id, {
+  return fetch(postsHost + `/${id}`, {
     method: "DELETE",
+    headers: {
+      Authorization: token,
+    },
+  }).then((response) => {
+    return response.json();
+  });
+}
+
+export function likeFetchFunc({ id, token }) {
+  return fetch(postsHost + `/` + id + `/like`, {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+  }).then((response) => {
+    return response.json();
+  });
+}
+
+export function dislikeFetchFunc({ id, token }) {
+  return fetch(postsHost + `/` + id + `/like`, {
+    method: "POST",
     headers: {
       Authorization: token,
     },
