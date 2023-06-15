@@ -98,9 +98,8 @@ export function renderPostsPageComponent({ appEl, token }) {
 }
 
 export function renderUserPostComponent({ appEl, token, user }) {
-
   let postsUserHtml = userPosts.map((post) => {
-    return `<li class="post">
+    return `<li class="post-user">
           <div class="post-header post-header-userPage" data-user-id=${post.user.id}>
             <img src="${post.user.imageUrl}" class="post-header__user-image">
             <p class="post-header__user-name">${post.user.name}</p>
@@ -142,7 +141,7 @@ export function renderUserPostComponent({ appEl, token, user }) {
   const appHtml = `
         <div class="page-container">
           <div class="header-container"></div>
-          <ul class="posts">
+          <ul class="posts-user">
            ${postsUserHtml}
           </ul>
         </div>`;

@@ -46,6 +46,18 @@
   margin: 0;
 }
 
+.posts-user {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  list-style: none;
+}
+
+.post-user {
+  width: 500px;
+}
+
 .post-header {
   display: flex;
   flex-direction: row;
