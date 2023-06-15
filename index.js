@@ -54,15 +54,13 @@ export const goToPage = (newPage, data) => {
     }
 
     if (newPage === USER_POSTS_PAGE) {
-      if (!data?.notIsLoad) {
-        page = LOADING_PAGE;
-        renderApp();
-      }
-
-      console.log("Открываю страницу пользователя: ", data.userId);
       let id = data.userId;
+      console.log("Открываю страницу пользователя: ", data.userId);
 
-      return getUserPosts({ id, token: getToken() })
+      return getUserPosts({
+        id,
+        token: getToken()
+      })
         .then((data) => {
           page = USER_POSTS_PAGE;
           userPosts = data;

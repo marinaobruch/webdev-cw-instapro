@@ -79,7 +79,6 @@ export function renderPostsPageComponent({ appEl, token }) {
   const page = POSTS_PAGE;
 }
 
-
 export function renderUserPostComponent({ appEl, token, user }) {
 
   let postsUserHtml = userPosts.map((post) => {
@@ -107,9 +106,10 @@ export function renderUserPostComponent({ appEl, token, user }) {
                   </p>
             </div>
 
+            ${user._id === post.user.id ? `            
             <div class="delete-button-main">
             <button class="delete-button" data-post-id="${post.id}">Удалить пост</button>
-            </div>
+            </div>` : ``}
 
           </div>
 
@@ -138,26 +138,19 @@ export function renderUserPostComponent({ appEl, token, user }) {
   });
 
   //Функция удаления комментария
-  if (!user) {
-    const deleteButtons = document.querySelectorAll(".delete-button");
-    for (const deleteButton of deleteButtons) {
-      deleteButton.setAttribute('disabled', '');
-      deleteButton.classList.add("disabled");
-    }
-  }
-
-  if (user) {
-    console.log(user.id);
-    let deleteButtons = document.querySelectorAll(".delete-button");
-    for (const deleteButton of deleteButtons) {
-      let id = deleteButton.dataset.postId;
-      deleteButton.addEventListener("click", () => {
-        deletePost({
-          id,
-          token: getToken(),
-        })
+  const deleteButtons = document.querySelectorAll(".delete-button");
+  for (const deleteButton of deleteButtons) {
+    let id = deleteButton.dataset.postId;
+    deleteButton.addEventListener("click", () => {
+      deletePost({
+        id,
+        token: getToken(),
+      }).then(() => {
+        console.log("Запись удалена");
+        // goToPage(USER_POSTS_PAGE, data); // реализовать обновление страницы после удаления поста
+        // нужно передать новые посты в переменную и вызвать ее в goToPage
       })
-    };
-  }
-  let page = USER_POSTS_PAGE;
+    })
+  };
+
 }
