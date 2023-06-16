@@ -1,8 +1,9 @@
 import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, userPosts, getToken, user } from "../index.js";
-import { correctDate } from "../helpers.js";
 import { getPosts, getUserPosts, deletePost, likeFetchFunc, dislikeFetchFunc } from "../api.js";
+import { formatDistance } from "date-fns";
+import { ru } from 'date-fns/locale'
 
 function initLikeButtons(page, token, data) {
   const likeButtonElements = document.querySelectorAll(".like-button");
@@ -64,7 +65,7 @@ export function renderPostsPageComponent({ appEl, token }) {
       ${post.description}
     </p>
     <p class="post-date">
-    ${correctDate(post.createdAt)}
+    ${formatDistance(new Date(post.createdAt), Date.now(), { locale: ru })}
     </p>
   </li>`
   }).join('');
@@ -133,7 +134,7 @@ export function renderUserPostComponent({ appEl, token, user }) {
             ${post.description}
           </p>
           <p class="post-date">
-          ${correctDate(post.createdAt)}
+          ${formatDistance(new Date(post.createdAt), Date.now(), { locale: ru })}
           </p>
         </li>`
   }).join('');
