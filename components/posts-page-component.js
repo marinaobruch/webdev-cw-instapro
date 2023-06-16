@@ -6,7 +6,6 @@ import { getPosts, getUserPosts, deletePost, likeFetchFunc, dislikeFetchFunc } f
 // import { ru } from 'date-fns/locale'
 import { correctDate } from "../helpers.js";
 
-
 function initLikeButtons(page, token, data) {
   const likeButtonElements = document.querySelectorAll(".like-button");
 
