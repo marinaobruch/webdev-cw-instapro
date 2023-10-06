@@ -3,17 +3,22 @@
 MVP of an analogue of a popular social network. photo sharing networks /
 MVP аналога популярной соц. сети для обмена фотографиями
 
-## Ссылка на приложение:
+# Stack
+
+HTML, CSS< JavaScript
+
+
+## Link on App:
 
 https://marinaobruch.github.io/webdev-cw-instapro/
 
-## Первоначальная оценка
+## Initial assessment / Первоначальная оценка
 20h / 20 часов (+-)
 
-## Фактически затраченное время
+## Actual time spent / Фактически затраченное время
 35 h / 35 часов (+-)
 
-## Доп. фичи
+## Additional fiches / Доп. фичи
   - deleting posts by the user who posted this post /   - удаление постов тем пользователем, кто этот пост разместил
 
   - user page stylized /   - стилизована страница пользователя
