@@ -5,7 +5,7 @@ MVP аналога популярной соц. сети для обмена ф�
 
 # Stack
 
-HTML, CSS< JavaScript
+HTML, CSS, JavaScript
 
 
 ## Link on App:
